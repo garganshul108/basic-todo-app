@@ -2,11 +2,20 @@
 import React from 'react';
 import {
   View,
-  Text,
-  ScrollView,
-  CheckBox
+  ScrollView
 } from 'react-native';
 
+import {
+  Text,
+  CheckBox,
+  Divider,
+  Header,
+  SearchBar,
+  Icon
+} from 'react-native-elements';
+
+
+const LineBreak = () => <Text>{"\n"}</Text>;
 
 class Todo extends React.Component {
 
@@ -38,19 +47,20 @@ class App extends React.Component {
     return (
       <Todo id={todo.id}>
         <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 3 }}>
-            <Text>{todo.id}: </Text>
+          <View style={{ flex: 6 }}>
+            <Text h4>{todo.id}: </Text>
           </View>
           <View style={{ flex: 20, marginHorizontal: 10 }}>
             <Text>{todo.title}</Text>
           </View>
-          <View style={{ flex: 3 }}>
-            <CheckBox title="done"
-              checkedIcon='dot-circle-o'
-              uncheckedIcon='circle-o'
-              value={todo.completed} />
+          <View>
+            <CheckBox
+              // checkedIcon='dot-circle-o'
+              // uncheckedIcon='circle-o'
+              checked={todo.completed} />
           </View>
         </View>
+        <Divider />
       </Todo>
     );
   }
@@ -58,11 +68,24 @@ class App extends React.Component {
   render() {
     return (
       <View style={{ width: '100%' }}>
-        <Text>TODO LIST:</Text>
+        <Header
+          leftComponent={<Icon color='white' name='list' />}
+          centerComponent={{ text: 'TODO APP', style: { fontWeight: 'bold', color: '#fff' } }}
+          rightComponent={{ icon: '', color: '#fff' }}
+        />
+        <SearchBar
+          platform="ios"
+          placeholder="Type Here..."
+        />
+        <Divider />
         <ScrollView>
           {this.state.todos.length <= 0 && <Text>Loading...</Text>}
           {this.state.todos.length > 0 && this.state.todos.map(todo => this.generateTodoTemplate(todo))}
         </ScrollView>
+        <LineBreak />
+        <Divider />
+        <Text>End of the App</Text>
+        <LineBreak />
       </View>
     );
   }
