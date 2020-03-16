@@ -2,7 +2,8 @@
 import React from 'react';
 import {
   View,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from 'react-native';
 
 import {
@@ -15,7 +16,9 @@ import {
 } from 'react-native-elements';
 
 
-const LineBreak = () => <Text>{"\n"}</Text>;
+const LineBreak = () => <View><Text>{"\n"}</Text></View>;
+
+const LoadingIcon = () => <ActivityIndicator size="large" color="#0000ff" animating={true} />;
 
 class Todo extends React.Component {
 
@@ -55,8 +58,6 @@ class App extends React.Component {
           </View>
           <View>
             <CheckBox
-              // checkedIcon='dot-circle-o'
-              // uncheckedIcon='circle-o'
               checked={todo.completed} />
           </View>
         </View>
@@ -79,12 +80,9 @@ class App extends React.Component {
         />
         <Divider />
         <ScrollView>
-          {this.state.todos.length <= 0 && <Text>Loading...</Text>}
+          {this.state.todos.length <= 0 && <><LineBreak /><LoadingIcon /></>}
           {this.state.todos.length > 0 && this.state.todos.map(todo => this.generateTodoTemplate(todo))}
         </ScrollView>
-        <LineBreak />
-        <Divider />
-        <Text>End of the App</Text>
         <LineBreak />
       </View>
     );
