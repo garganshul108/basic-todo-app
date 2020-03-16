@@ -4,13 +4,15 @@ import {
   View,
   Text,
   ScrollView,
+  CheckBox
 } from 'react-native';
+
 
 class Todo extends React.Component {
 
   render() {
     return (
-      <Text id={this.props.id}>{this.props.children}</Text>
+      <View id={this.props.id} style={{ padding: 5 }}>{this.props.children}</View>
     );
   }
 
@@ -32,12 +34,34 @@ class App extends React.Component {
       .catch(e => console.log(e))
   }
 
+  generateTodoTemplate = (todo) => {
+    return (
+      <Todo id={todo.id}>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 2 }}>
+            <Text>{todo.id}: </Text>
+          </View>
+          <View style={{ flex: 20, marginHorizontal: 10 }}>
+            <Text>{todo.title}</Text>
+          </View>
+          <View style={{ flex: 3 }}>
+            <CheckBox title="done"
+              checkedIcon='dot-circle-o'
+              uncheckedIcon='circle-o'
+              checked={todo.completed} />
+          </View>
+        </View>
+      </Todo>
+    );
+  }
+
   render() {
     return (
-      <View><Text>TODO LIST:</Text>
+      <View style={{ width: '100%' }}>
+        <Text>TODO LIST:</Text>
         <ScrollView>
           {this.state.todos.length <= 0 && <Text>Loading...</Text>}
-          {this.state.todos.length > 0 && this.state.todos.map(todo => <Todo id={todo.id}>{todo.id}: {todo.title}</Todo>)}
+          {this.state.todos.length > 0 && this.state.todos.map(todo => this.generateTodoTemplate(todo))}
         </ScrollView>
       </View>
     );
