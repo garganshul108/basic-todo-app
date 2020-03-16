@@ -38,7 +38,7 @@ class App extends React.Component {
     return (
       <Todo id={todo.id}>
         <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 2 }}>
+          <View style={{ flex: 3 }}>
             <Text>{todo.id}: </Text>
           </View>
           <View style={{ flex: 20, marginHorizontal: 10 }}>
@@ -48,7 +48,7 @@ class App extends React.Component {
             <CheckBox title="done"
               checkedIcon='dot-circle-o'
               uncheckedIcon='circle-o'
-              checked={todo.completed} />
+              value={todo.completed} />
           </View>
         </View>
       </Todo>
